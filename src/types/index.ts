@@ -48,7 +48,7 @@ export interface IAutocompleteDropdownProps {
   textInputProps?: TextInputProps
   onChangeText?: (text: string) => void
   onSelectItem?: (item: AutocompleteDropdownItem | null) => void
-  renderItem?: (item: AutocompleteDropdownItem, searchText: string) => React.ReactElement | null
+  renderItem?: (item: AutocompleteDropdownItem, searchText: string, pressed: boolean) => React.ReactElement | null
   onOpenSuggestionsList?: (isOpened: boolean) => void
   onClear?: () => void
   onChevronPress?: () => void

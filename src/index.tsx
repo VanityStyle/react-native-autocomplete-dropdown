@@ -17,16 +17,7 @@ import type {
   TextInputFocusEventData,
   TextInputSubmitEditingEventData,
 } from 'react-native'
-import {
-  Dimensions,
-  Keyboard,
-  Platform,
-  Pressable,
-  TextInput,
-  TouchableOpacity,
-  View,
-  useColorScheme,
-} from 'react-native'
+import { Dimensions, Keyboard, Platform, Pressable, TextInput, View, useColorScheme } from 'react-native'
 import { moderateScale, ScaledSheet } from 'react-native-size-matters'
 import { Dropdown } from './Dropdown'
 import { NothingFound } from './NothingFound'
@@ -316,8 +307,11 @@ export const AutocompleteDropdown = memo<
     const renderItem: ListRenderItem<AutocompleteDropdownItem> = useCallback(
       ({ item }) => {
         if (typeof customRenderItem === 'function') {
-          const EL = customRenderItem(item, searchText)
-          return <TouchableOpacity onPress={() => _onSelectItem(item)}>{EL}</TouchableOpacity>
+          return (
+            <Pressable onPress={() => _onSelectItem(item)}>
+              {({ pressed }) => customRenderItem(item, searchText, pressed)}
+            </Pressable>
+          )
         }
 
         return (
