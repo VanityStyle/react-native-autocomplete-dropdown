@@ -1,6 +1,6 @@
 import type { FC } from 'react'
 import React, { memo, useMemo } from 'react'
-import type { ViewProps } from 'react-native'
+import type { ViewProps, ColorSchemeName } from 'react-native'
 import { StyleSheet, Text, TouchableOpacity, View, useColorScheme } from 'react-native'
 import diacriticless from './diacriticless'
 import { theme } from './theme'
@@ -12,12 +12,14 @@ interface ScrollViewListItemProps {
   onPress?: () => void
   ignoreAccents?: boolean
   numberOfLines?: number
+  colorScheme?: ColorSchemeName
 }
 
 export const ScrollViewListItem: FC<ScrollViewListItemProps> = memo(
-  ({ highlight, title, style, onPress, ignoreAccents, numberOfLines = 2 }) => {
-    const themeName = useColorScheme()
-    const styles = useMemo(() => getStyles(themeName || 'light'), [themeName])
+  ({ highlight, title, style, onPress, ignoreAccents, numberOfLines = 2, colorScheme }) => {
+    const systemThemeName = useColorScheme()
+    const themeName = colorScheme || systemThemeName || 'light'
+    const styles = useMemo(() => getStyles(themeName), [themeName])
 
     const titleParts = useMemo(() => {
       let titleHighlighted = ''

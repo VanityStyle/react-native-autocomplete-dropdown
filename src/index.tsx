@@ -77,6 +77,7 @@ export const AutocompleteDropdown = memo<
       containerStyle,
       inputContainerStyle,
       suggestionsListTextStyle,
+      colorScheme,
     } = props
     const InputComponent = (props.InputComponent as typeof TextInput) || TextInput
     const inputRef = useRef<TextInput>(null)
@@ -99,7 +100,8 @@ export const AutocompleteDropdown = memo<
       direction = directionProp,
       setDirection,
     } = useContext(AutocompleteDropdownContext)
-    const themeName = useColorScheme() || 'light'
+    const systemThemeName = useColorScheme()
+    const themeName = colorScheme || systemThemeName || 'light'
     const styles = useMemo(() => getStyles(themeName), [themeName])
 
     useEffect(() => {
@@ -445,6 +447,7 @@ export const AutocompleteDropdown = memo<
               suggestionsListMaxHeight,
               renderItem,
               ListEmptyComponent,
+              colorScheme,
             }}
           />,
         )
@@ -462,6 +465,7 @@ export const AutocompleteDropdown = memo<
       renderItem,
       setContent,
       suggestionsListMaxHeight,
+      colorScheme,
     ])
 
     return (
