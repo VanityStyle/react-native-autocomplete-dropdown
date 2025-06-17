@@ -78,6 +78,7 @@ export const AutocompleteDropdown = memo<
       inputContainerStyle,
       suggestionsListTextStyle,
       colorScheme,
+      emptyResultStyles
     } = props
     const InputComponent = (props.InputComponent as typeof TextInput) || TextInput
     const inputRef = useRef<TextInput>(null)
@@ -331,7 +332,7 @@ export const AutocompleteDropdown = memo<
     )
 
     const ListEmptyComponent = useMemo(() => {
-      return EmptyResultComponent ?? <NothingFound emptyResultText={emptyResultText} />
+      return EmptyResultComponent ?? <NothingFound emptyResultStyles={emptyResultStyles} emptyResultText={emptyResultText} />
     }, [EmptyResultComponent, emptyResultText])
 
     const debouncedEvent = useMemo(

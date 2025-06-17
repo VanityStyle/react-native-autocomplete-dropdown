@@ -8,6 +8,7 @@ import type {
   FlatListProps,
   TextInput,
   ColorSchemeName,
+  TextProps,
 } from 'react-native'
 
 export type AutocompleteDropdownItem = {
@@ -83,4 +84,5 @@ export interface IAutocompleteDropdownProps {
   flatListProps?: FlatListProps<any>
   ref?: React.LegacyRef<TextInput> | undefined
   colorScheme?: ColorSchemeName
+  emptyResultStyles?: StyleProp<TextProps>
 }
