@@ -1,6 +1,7 @@
 import type { FC } from 'react'
 import React, { memo } from 'react'
-import { StyleProp, StyleSheet, Text, TextProps, View } from 'react-native'
+import { StyleSheet, Text, View } from 'react-native'
+import type { StyleProp, TextProps } from 'react-native'
 import { withFadeAnimation } from './HOC/withFadeAnimation'
 
 interface NothingFoundProps {
