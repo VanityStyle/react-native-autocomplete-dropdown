@@ -1,12 +1,12 @@
 import type { FC } from 'react'
 import React, { memo } from 'react'
 import { StyleSheet, Text, View } from 'react-native'
-import type { StyleProp, TextProps } from 'react-native'
+import type { StyleProp, TextStyle } from 'react-native'
 import { withFadeAnimation } from './HOC/withFadeAnimation'
 
 interface NothingFoundProps {
   emptyResultText?: string
-  emptyResultStyles?: StyleProp<TextProps>
+  emptyResultStyles?: StyleProp<TextStyle>
 }
 
 export const NothingFound: FC<NothingFoundProps> = memo(({ ...props }) => {
