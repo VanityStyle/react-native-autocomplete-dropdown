@@ -106,10 +106,10 @@
         "react-native": ">=0.60.0",
         "react-native-svg": ">=13.0.0"
     },
-    "packageManager": "yarn@3.6.1",
     "engines": {
         "node": ">=18"
     },
+    "private": true,
     "publishConfig": {
         "registry": "https://registry.npmjs.org/"
     },
