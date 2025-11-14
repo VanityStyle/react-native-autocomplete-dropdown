@@ -18,11 +18,12 @@ export const Dropdown = memo((props: DropdownProps) => {
     ListEmptyComponent,
     ItemSeparatorComponent,
     direction,
-    theme,
+    colorScheme,
     ...rest
   } = props
-  const themeName = theme || useColorScheme()
-  const styles = useMemo(() => getStyles(themeName || 'light'), [themeName])
+  const systemThemeName = useColorScheme()
+  const themeName = colorScheme || systemThemeName || 'light'
+  const styles = useMemo(() => getStyles(themeName), [themeName])
 
   const defaultItemSeparator = useMemo(() => {
     return () => <View style={styles.itemSeparator} />

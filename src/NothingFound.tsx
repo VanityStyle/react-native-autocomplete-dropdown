@@ -1,17 +1,20 @@
 import type { FC } from 'react'
 import React, { memo } from 'react'
+import type { StyleProp, TextStyle } from 'react-native'
 import { StyleSheet, Text, View } from 'react-native'
+
 import { withFadeAnimation } from './HOC/withFadeAnimation'
 
 interface NothingFoundProps {
   emptyResultText?: string
+  emptyResultStyles?: StyleProp<TextStyle>
 }
 
 export const NothingFound: FC<NothingFoundProps> = memo(({ ...props }) => {
   const EL = withFadeAnimation(
     () => (
       <View style={{ ...styles.container }}>
-        <Text style={styles.text}>{props.emptyResultText || 'Nothing found'}</Text>
+        <Text style={[styles.text, props.emptyResultStyles]}>{props.emptyResultText || 'Nothing found'}</Text>
       </View>
     ),
     {},

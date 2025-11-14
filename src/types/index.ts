@@ -1,5 +1,13 @@
 import type React from 'react'
-import type { StyleProp, TextInputProps, TextStyle, ViewStyle, FlatListProps, TextInput } from 'react-native'
+import type {
+  StyleProp,
+  TextInputProps,
+  TextStyle,
+  ViewStyle,
+  FlatListProps,
+  TextInput,
+  ColorSchemeName,
+} from 'react-native'
 
 export type AutocompleteDropdownItem = {
   id: string
@@ -49,7 +57,7 @@ export interface IAutocompleteDropdownProps {
   theme?: 'light' | 'dark'
   onChangeText?: (text: string) => void
   onSelectItem?: (item: AutocompleteDropdownItem | null) => void
-  renderItem?: (item: AutocompleteDropdownItem, searchText: string) => React.ReactElement | null
+  renderItem?: (item: AutocompleteDropdownItem, searchText: string, pressed: boolean) => React.ReactElement | null
   onOpenSuggestionsList?: (isOpened: boolean) => void
   onClear?: () => void
   onChevronPress?: () => void
@@ -75,4 +83,6 @@ export interface IAutocompleteDropdownProps {
   emptyResultText?: string
   flatListProps?: Partial<FlatListProps<AutocompleteDropdownItem>>
   ref?: React.Ref<TextInput>
+  colorScheme?: ColorSchemeName
+  emptyResultStyles?: StyleProp<TextStyle>
 }

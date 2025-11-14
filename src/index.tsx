@@ -7,16 +7,7 @@ import type {
   TextInputFocusEventData,
   TextInputSubmitEditingEventData,
 } from 'react-native'
-import {
-  Dimensions,
-  Keyboard,
-  Platform,
-  Pressable,
-  TextInput,
-  TouchableOpacity,
-  View,
-  useColorScheme,
-} from 'react-native'
+import { Dimensions, Keyboard, Platform, Pressable, TextInput, View, useColorScheme } from 'react-native'
 import { moderateScale, ScaledSheet } from 'react-native-size-matters'
 import { Dropdown } from './Dropdown'
 import { NothingFound } from './NothingFound'
@@ -74,6 +65,8 @@ export const AutocompleteDropdown = memo((props: IAutocompleteDropdownProps) => 
     inputContainerStyle,
     suggestionsListTextStyle,
     ref,
+    colorScheme,
+    emptyResultStyles,
   } = props
   const InputComponent = (props.InputComponent as typeof TextInput) || TextInput
   const inputRef = useRef<TextInput>(null)
@@ -96,7 +89,8 @@ export const AutocompleteDropdown = memo((props: IAutocompleteDropdownProps) => 
     setDirection,
     controllerRefs,
   } = useContext(AutocompleteDropdownContext)
-  const themeName = useColorScheme() || 'light'
+  const systemThemeName = useColorScheme()
+  const themeName = colorScheme || systemThemeName || 'light'
   const styles = useMemo(() => getStyles(themeName), [themeName])
 
   useEffect(() => {
@@ -322,8 +316,11 @@ export const AutocompleteDropdown = memo((props: IAutocompleteDropdownProps) => 
   const renderItem: ListRenderItem<AutocompleteDropdownItem> = useCallback(
     ({ item }) => {
       if (typeof customRenderItem === 'function') {
-        const EL = customRenderItem(item, searchText)
-        return <TouchableOpacity onPress={() => _onSelectItem(item)}>{EL}</TouchableOpacity>
+        return (
+          <Pressable onPress={() => _onSelectItem(item)}>
+            {({ pressed }) => customRenderItem(item, searchText, pressed)}
+          </Pressable>
+        )
       }
 
       return (
@@ -341,8 +338,10 @@ export const AutocompleteDropdown = memo((props: IAutocompleteDropdownProps) => 
   )
 
   const ListEmptyComponent = useMemo(() => {
-    return EmptyResultComponent ?? <NothingFound emptyResultText={emptyResultText} />
-  }, [EmptyResultComponent, emptyResultText])
+    return (
+      EmptyResultComponent ?? <NothingFound emptyResultStyles={emptyResultStyles} emptyResultText={emptyResultText} />
+    )
+  }, [EmptyResultComponent, emptyResultText, emptyResultStyles])
 
   const debouncedEvent = useMemo(
     () =>
@@ -459,6 +458,7 @@ export const AutocompleteDropdown = memo((props: IAutocompleteDropdownProps) => 
           renderItem={renderItem}
           ItemSeparatorComponent={props.ItemSeparatorComponent}
           ListEmptyComponent={ListEmptyComponent}
+          colorScheme={colorScheme}
         />,
       )
     } else {
@@ -477,6 +477,7 @@ export const AutocompleteDropdown = memo((props: IAutocompleteDropdownProps) => 
     renderItem,
     setContent,
     suggestionsListMaxHeight,
+    colorScheme,
   ])
 
   return (
